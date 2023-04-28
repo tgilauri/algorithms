@@ -2,9 +2,6 @@ import math
 
 
 class Heap:
-    heap = []
-    last_index = 0
-
     def __init__(self, items):
         self.__create_heap(items)
 
@@ -45,16 +42,20 @@ class Heap:
 
     def insert(self, val):
         self.heap.append(-math.inf)
+        self.last_index += 1
         self.increase_key(len(self.heap) - 1, val)
-
-    def remove(self, val):
-        pass
 
     def is_empty(self):
         return len(self.heap) == 0
 
     def get_max(self):
-        return self.heap[0]
+        if len(self.heap) == 0:
+            return None
+        self.heap[0], self.heap[self.last_index] = self.heap[self.last_index], self.heap[0]
+        self.last_index -= 1
+        max_el = self.heap.pop()
+        self.heapify(0)
+        return max_el
 
     def __str__(self):
         return f"[{', '.join(map(lambda x: str(x), self.heap))}]"
@@ -75,16 +76,14 @@ heap.insert(37)
 heap.insert(3)
 heap.insert(101)
 
-print([100, 25, 36, 17, 9, 7, 4, 2, 11, 16, 12])
+print(heap.get_max())
 print(heap)
 
 
 def heap_sort(items):
     _heap = Heap(items)
     for i in range(_heap.last_index, -1, -1):
-        tmp_first = _heap[0]
-        _heap[0] = _heap[i]
-        _heap[i] = tmp_first
+        _heap[0], _heap[i] = _heap[i], _heap[0]
         _heap.last_index -= 1
         _heap.heapify(0)
     print(_heap)
