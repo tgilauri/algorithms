@@ -9,6 +9,9 @@ class Dequeue:
     def __get_new_item_idx(self):
         return (self.start_idx + self.length) % self.size
 
+    def __get_last_item_idx(self):
+        return self.start_idx + self.length - 1 if self.start_idx == 0 else self.__get_new_item_idx() - 1
+
     def push_front(self, item):
         if self.length < self.size:
             new_idx = self.start_idx - 1 if self.start_idx > 0 else self.size - 1
@@ -43,12 +46,18 @@ class Dequeue:
     def pop_back(self):
         if self.is_empty():
             return None
-        last_item_idx = (self.start_idx + self.length) - 1
+        last_item_idx = self.__get_last_item_idx()
         item = self.arr[last_item_idx]
         self.arr[last_item_idx] = None
         self.length -= 1
         self.start_idx = self.start_idx if self.length > 0 else 0
         return item
+
+    def get_front(self):
+        return self.arr[self.start_idx]
+
+    def get_back(self):
+        return self.arr[self.__get_last_item_idx()]
 
     def is_empty(self):
         return self.length == 0
@@ -82,6 +91,9 @@ deque.push_back(9)
 deque.push_back(10)
 deque.push_back(11)
 deque.push_front(12)
+
+print(deque.get_back())
+print(deque.get_front())
 
 
 print(deque.arr)
