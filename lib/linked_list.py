@@ -4,6 +4,9 @@ class ListNode:
         self.next = next
         self.name = name
 
+    def __lt__(self, other):
+        return self.val > other.val
+
 
 def get_sorted_linked_list(amount, start_val=1, prefix=''):
     node = ListNode(val=start_val, next=None, name='_'.join([prefix, str(start_val)]))
