@@ -17,16 +17,18 @@ class BiTree:
         else:
             curr = self.head
             while True:
-                if val <= curr.val:
+                if val == curr.val:
+                    return curr
+                if val < curr.val:
                     if not curr.left:
                         curr.left = node
-                        break
+                        return curr.left
                     else:
                         curr = curr.left
                 elif val > curr.val:
                     if not curr.right:
                         curr.right = node
-                        break
+                        return curr.right
                     else:
                         curr = curr.right
 
@@ -38,7 +40,7 @@ class BiTree:
             print(f"operation #{counter}")
             if curr.val == val:
                 return curr
-            if val <= curr.val:
+            elif val < curr.val:
                 curr = curr.left
             else:
                 curr = curr.right
