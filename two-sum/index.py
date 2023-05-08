@@ -34,11 +34,11 @@ def two_sum_sorted_pntr(nums, target):
 def two_sum_with_dict(nums, target):
     hash_map = {}
 
-    for num in nums:
+    for i in range(len(nums)):
+        num = nums[i]
         if (target - num) in hash_map:
-            return [target - num, num]
-        if num not in hash_map:
-            hash_map[num] = True
+            return [hash_map[target - num], i]
+        hash_map[num] = i
     return None
 
 
